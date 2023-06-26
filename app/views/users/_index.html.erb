@@ -12,6 +12,7 @@
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
         <td><%= link_to 'Show', user %></td>
+        <td>コメント数：<%= user.book_comments.count %></td>
       </tr>
     <% end %>
   </tbody>
