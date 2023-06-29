@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
     favorite.save
     redirect_back fallback_location: root_path
   end
-  #redirect_back fallback_location: root_path:1個前のパスに移動
+  #redirect_back fallback_location: root_path:1個前のパス
 
   def destroy
     book = Book.find(params[:book_id])

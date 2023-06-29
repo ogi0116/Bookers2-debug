@@ -1,0 +1,27 @@
+<h1>Follower Users</h1>
+  <% if @users.blank? %>
+  <p>ユーザーはいません</p>
+<% else %>
+  <% @users.each do |user| %>
+     <table class='table table-hover table-inverse'>
+       <tr>
+         <th>image</th>
+         <th>name</th>
+         <th colspan="3"></th>
+        </tr>
+
+      <tbody>
+        <tr>
+          <td><%= link_to(user) do %>
+            <%= image_tag user.get_profile_image, size:'50x50' %>
+            <% end %>
+          </td>
+          <td><%= user.name %></td>
+          <td><%= "フォロー数: #{user.active_relationships.count}" %></td>
+          <td><%= "フォロワー数: #{user.passive_relationships.count}" %></td>
+          <td><%= link_to 'Show', user %></td>
+        </tr>
+      </tbody>
+     </table>
+  <% end %>
+<% end %>

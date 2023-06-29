@@ -9,11 +9,11 @@ class BookCommentsController < ApplicationController
     redirect_to book_path(book)
   end
 
-#params[:id]をparams[:book_id]に変えた
+#destroyのルーティングを見ると2つ必要であるとわかったため
   def destroy
-    comment = BookComment.find(params[:book_id])
+    comment = BookComment.find_by(id: params[:id], book_id: params[:book_id])
     comment.destroy
-    redirect_to book_path(params[:id])
+    redirect_back fallback_location: root_path
   end
 
   private

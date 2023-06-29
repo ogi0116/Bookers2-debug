@@ -14,6 +14,26 @@ class User < ApplicationRecord
   validates :introduction, length: { maximum: 50}
 
 
+    # フォローするユーザーから見た中間テーブル
+  has_many :active_relationships,class_name: "Relationship", foreign_key: "follower_id",dependent: :destroy
+
+  # フォローされているユーザーから見た中間テーブル
+  has_many :passive_relationships,class_name: "Relationship",foreign_key: "followed_id", dependent: :destroy
+
+  # 中間テーブルactive_relationshipsを通って、フォローされる側(followed)を集める処理をfollowingsと命名
+  # フォローしているユーザーの情報がわかるようになる
+  has_many :followers, through: :active_relationships, source: :followed
+
+  # 中間テーブルpassive_relationshipsを通って、フォローする側(follower)を集める処理をfollowingsと命名
+  #　フォローされているユーザーの情報がわかるようになる
+  has_many :followeds, through: :passive_relationships, source: :follower
+
+  def followed_by?(user)
+    # 今自分(引数のuser)がフォローしようとしているユーザー(レシーバー)がフォローされているユーザー(つまりpassive)の中から、引数に渡されたユーザー(自分)がいるかどうかを調べる
+    passive_relationships.find_by(follower_id: user.id).present?
+  end
+
+
 
 
   def get_profile_image
