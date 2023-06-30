@@ -19,9 +19,16 @@
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
           <!--いいね機能-->
-          <td><%= render "favorites/btn", book: @book %></td>
+          <td id="favorite_buttons_<%= @book.id %>">
+            <%= render "favorites/btn", book: @book %>
+          </td>
           <!--いいね機能終わり-->
-      　　  <td>コメント件数：<%= @book.book_comments.count %></td>
+
+      　　  <td>
+            <div>コメント件数：<span id="comment_count"><%= @book.book_comments.count %></span></div>
+      　　  </td>
+
+
 
           <% if @user.id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
@@ -30,11 +37,15 @@
         </tr>
       </table>
    　　 <!--コメント一覧入り-->
-      <%= render "book_comments/index", book: @book %>
+   　 <div id= "book-comments">
+        <%= render "book_comments/index", book: @book %>
+     </div>
  　　   <!--コメント一覧終わり-->
 
 　　　<!--コメント投稿フォーム入り-->
-      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+　　　<div id= "comment-form">
+        <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+      </div>
       <!--コメント投稿フォーム終わり-->
     </div>
   </div>

@@ -1,4 +1,4 @@
-<%= form_with model: [book, book_comment] do |f| %>
+<%= form_with model: [book, book_comment],local: false do |f| %>
  <div class= "form-group">
    <label for= "comment_body"></label>
      <%= f.text_area :comment,class: "comment_body form-control", rows: '5' %>

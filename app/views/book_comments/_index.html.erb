@@ -11,7 +11,7 @@
     <!--each文よりbook_commentはローカル変数だが、bookはインスタンス変数なので設定が必要である-->
     <td>
       <% if book_comment.user == current_user %>
-       <%= link_to "Destroy", book_book_comment_path(book,book_comment), method: :delete ,class:"btn btn-danger pull-right"%>
+       <%= link_to "Destroy", book_book_comment_path(book,book_comment), method: :delete ,class:"btn btn-danger pull-right",remote:true, data: {"turbolinks" => false} %>
       <% end %>
     </td>
   </tr>
