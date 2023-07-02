@@ -28,6 +28,8 @@
             <div>コメント件数：<span id="comment_count"><%= @book.book_comments.count %></span></div>
       　　  </td>
 
+          <td>閲覧数: <%= @book.view_counts.count %></td>
+
 
 
           <% if @user.id == current_user.id %>
