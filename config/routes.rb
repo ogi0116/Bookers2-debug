@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :chats, only: [:show, :create]
 
+  resources :groups, only: [:new, :index, :show, :create, :edit, :update]
+
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
