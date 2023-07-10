@@ -1,10 +1,11 @@
+
 <table class='table table-hover table-inverse'>
   <thead>
     <tr>
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
-      <th colspan="3"></th>
+      <th>Tag</th>
     </tr>
   </thead>
   <tbody>
@@ -17,26 +18,37 @@
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
 
+        <td>
+          <% if book.category.present? %>
+         　<%=link_to book.category,tagsearches_search_path(content: book.category)%>
+          <% end %>
+        </td>
+
 　　　　<!--ファボを非同期通信化-->
         <td id="favorite_buttons_<%= book.id %>">
           <%= render "favorites/btn", book: book %>
         </td>
          <!--ファボここまで-->
 
-        <td>コメント数：<%= book.book_comments.count %></td>
+        <td>reply<%= book.book_comments.count %></td>
 
         <td>
           <% if current_user != book.user %>
               <% if book.user.followed_by?(current_user) %>
-                  <p><%=link_to "フォロー外す", user_relationships_path(book.user.id), method: :delete %></p>
+                  <p><%=link_to "unfollow", user_relationships_path(book.user.id), method: :delete, class: "btn btn-danger" %></p>
               <% else %>
-                  <p><%=link_to "フォローする", user_relationships_path(book.user.id), method: :post %></p>
+                  <p><%=link_to "follow", user_relationships_path(book.user.id), method: :post, class: "btn btn-success" %></p>
               <% end %>
           <% end %>
         </td>
 
-        <td>閲覧数: <%= book.view_counts.count %></td>
+        <td>PV<%= book.view_counts.count %></td>
+
+
+
+        <td><%= render "books/static.rate", book: book %></td>
       </tr>
+
     <% end %>
   </tbody>
 </table>
